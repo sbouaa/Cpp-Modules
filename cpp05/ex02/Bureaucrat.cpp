@@ -71,6 +71,6 @@ void    Bureaucrat::executeForm(AForm const &Form) const
     }
     catch (std::exception &x)
     {
-        std::cout<<name<<" failed to execute "<<Form.getName()<<std::endl;
+        std::cout<<name<<" failed to execute "<<Form.getName()<<" because "<<x.what();
     }
 }

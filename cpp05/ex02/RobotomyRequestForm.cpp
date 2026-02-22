@@ -1,6 +1,6 @@
 #include "RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string &s) : AForm("RobotomyRequestForm", 72, 45), target(s) {}
+RobotomyRequestForm::RobotomyRequestForm(std::string s) : AForm("RobotomyRequestForm", 72, 45), target(s) {}
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& x) : AForm(x), target(x.target) {}
 
@@ -17,7 +17,11 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& x
 void    RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
     Check(executor);
-    std::cout<<"wsh ajemi\n";
+    std::cout<<"waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n";
+    if (std::rand() % 2)
+        std::cout<<target<<" has been robotomized successfully\n";
+    else
+        std::cout<<target<<" robotomization failed\n";
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {}
