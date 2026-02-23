@@ -14,6 +14,7 @@ class AForm
         const int   gradeSign;
         const int   gradeExecute;
     public :
+        AForm();
         AForm(const std::string name, int gradeS, int gradeE);
         AForm(const AForm &x);
         AForm& operator=(const AForm& x);

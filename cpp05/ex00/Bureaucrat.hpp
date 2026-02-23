@@ -9,6 +9,7 @@ class Bureaucrat
         const std::string name;
         int grade;
     public :
+        Bureaucrat();
         Bureaucrat(int grade, std::string name);
         Bureaucrat(const Bureaucrat& x);
         Bureaucrat &operator=(const Bureaucrat& x);
@@ -25,7 +26,6 @@ class Bureaucrat
                     return "Grade is too high";
                 }
         };
-
         class   GradeTooLowException : public std::exception
         {
             public :

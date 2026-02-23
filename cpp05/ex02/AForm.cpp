@@ -1,5 +1,7 @@
 #include "AForm.hpp"
 
+AForm::AForm() : name(""), sign(false), gradeSign(1), gradeExecute(1) {}
+
 AForm::AForm(const std::string name, int gradeS, int gradeE) : name(name), 
 sign(false), gradeSign(gradeS), gradeExecute(gradeE)
 {
@@ -36,7 +38,7 @@ int AForm::getGradeSign() const
 std::ostream& operator<<(std::ostream& os, const AForm& x)
 {
     os << "AForm " << x.getName()<< " | grade to sign: " << x.getGradeSign()
-    << " | grade to execute: " << x.getGradeExecute();
+    << " | grade to execute: " << x.getGradeExecute()<<std::endl;
     return os;
 }
 

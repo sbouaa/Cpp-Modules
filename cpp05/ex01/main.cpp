@@ -5,7 +5,7 @@ int main()
     try
     {
         Bureaucrat b("Carol", 40);
-        Form f("ExactForm", 0, 25);
+        Form f("ExactForm", 3, 25);
         b.signForm(f);
         std::cout << f << std::endl;
     }

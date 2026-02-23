@@ -6,6 +6,7 @@
 
 int main()
 {
+    std::srand(std::time(0));
     try {
         Bureaucrat b("Alice", 10);
         RobotomyRequestForm f("Mick");

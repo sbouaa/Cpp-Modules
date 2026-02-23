@@ -4,12 +4,14 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 #include <cstdlib>
+#include <ctime>
 
 class RobotomyRequestForm : public AForm
 {
     private :
         std::string target;
     public :
+        RobotomyRequestForm();
         RobotomyRequestForm(std::string s);
         RobotomyRequestForm(const RobotomyRequestForm& x);
         RobotomyRequestForm& operator=(const RobotomyRequestForm& x);

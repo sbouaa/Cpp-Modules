@@ -1,5 +1,7 @@
 #include "Bureaucrat.hpp"
 
+Bureaucrat::Bureaucrat() : name(""), grade(1) {}
+
 Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
 {
     if (grade < 1)
@@ -45,7 +47,7 @@ void Bureaucrat::decrementGrade()
 
 std::ostream& operator <<(std::ostream &c, const Bureaucrat &x)
 {
-    c<<x.getName() << ", bureaucrat grade " << x.getGrade() << "\n";
+    c<<x.getName() << ", bureaucrat grade " << x.getGrade() << std::endl;
     return c;
 }
 
@@ -58,7 +60,7 @@ void    Bureaucrat::signForm(AForm &x)
     }
     catch(std::exception &y)
     {
-        std::cout<<name<<" couldn't sign "<<x.getName()<<" because "<<y.what();
+        std::cout<<name<<" couldn't sign "<<x.getName()<<" because "<<y.what()<<std::endl;
     }
 }
 
@@ -71,6 +73,6 @@ void    Bureaucrat::executeForm(AForm const &Form) const
     }
     catch (std::exception &x)
     {
-        std::cout<<name<<" failed to execute "<<Form.getName()<<" because "<<x.what();
+        std::cout<<name<<" failed to execute "<<Form.getName()<<" because "<<x.what()<<std::endl;
     }
 }
