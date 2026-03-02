@@ -99,14 +99,14 @@ static int check(const std::string& s)
 
 static void printAll(double v)
 {
-    if (v < 0 || v > 127)
+    if (std::isnan(v) || std::isinf(v) || v < 0 || v > 127)
         std::cout<<"char : impossible\n";
     else if (v < 32 || v == 127)
         std::cout<<"char : Non displayable\n";
     else
         std::cout<<"char : '"<<static_cast<char>(v)<<"'\n";
 
-    if (v > INT_MAX || v < INT_MIN)
+    if (std::isnan(v) || std::isinf(v) || v > INT_MAX || v < INT_MIN)
         std::cout<<"int : impossible\n";
     else
         std::cout<<"int : "<<static_cast<int>(v)<<std::endl;
