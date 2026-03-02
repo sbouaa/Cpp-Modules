@@ -2,16 +2,8 @@
 
 int main()
 {
-    std::srand(std::time(NULL));
-    try 
-    {
-        Base *p = generate();
-        Base *x = NULL;
-        identify(p);
-        identify(*x);
-    }
-    catch (std::exception &x)
-    {
-        x.what();
-    }
+    std::srand(std::time(0));
+    Base *p = generate();
+    identify(*p);
+    identify(p);
 }

@@ -3,7 +3,9 @@
 #include "B.hpp"
 #include "C.hpp"
 
-Base* generate(void)
+Base::~Base() {}
+
+Base *generate(void)
 {
     int x = std::rand() % 3;
     if (x == 0)
@@ -18,20 +20,33 @@ void    identify(Base *p)
 {
     if (dynamic_cast<A*>(p))
         std::cout<<"is A\n";
-    else if (dynamic_cast<B*>(p))
+    if (dynamic_cast<B*>(p))
         std::cout<<"is B\n";
-    else if (dynamic_cast<C*>(p))
+    if (dynamic_cast<C*>(p))
         std::cout<<"is C\n";
 }
 
 void    identify(Base &p)
 {
-    if (dynamic_cast<A*>(&p))
+    try
+    {
+        (void)dynamic_cast<A&>(p);
         std::cout<<"is A\n";
-    else if (dynamic_cast<B*>(&p))
+        return ;
+    }
+    catch (...){}
+    try
+    {
+        (void)dynamic_cast<B&>(p);
         std::cout<<"is B\n";
-    else if (dynamic_cast<C*>(&p))
+        return ;
+    }
+    catch (...){}
+    try
+    {
+        (void)dynamic_cast<C&>(p);
         std::cout<<"is C\n";
+        return ;
+    }
+    catch (...){}
 }
-
-Base::~Base() {}
