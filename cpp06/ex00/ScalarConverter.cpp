@@ -43,8 +43,12 @@ static int isDouble(const std::string& s)
     while (i < s.length())
     {
         if (s[i] == '.')
+        {
             p++;
-        else if (!std::isdigit(s[i]) || p > 1)
+            if (p > 1)
+                return 0;
+        }
+        else if (!std::isdigit(s[i]))
             return 0;
         i++;
     }
@@ -64,11 +68,16 @@ static int isFloat(const std::string &s)
         i++;
     if (i == a.size())
         return 0;
+    // check double ff
     while (i < a.size())
     {
-        if (a[i] == '.')
+        if (s[i] == '.')
+        {
             p++;
-        else if (!std::isdigit(a[i]) || p > 1)
+            if (p > 1)
+                return 0;
+        }
+        else if (!std::isdigit(a[i]))
             return 0;
         i++;
     }
@@ -83,19 +92,19 @@ static int isPseudo(const std::string &s)
     return 0;
 }
 
-static int check(const std::string& s)
-{
-    long long L = std::strtoll(s.c_str(), NULL, 10);
-    if (L > INT_MAX || L < INT_MIN)
-    {
-        std::cout<<"char : impossible\n";
-        std::cout<<"int : impossible\n";
-        std::cout<<"float : impossible\n";
-        std::cout<<"double : impossible\n";
-        return 1;
-    }
-    return 0;
-}
+// static int check(const std::string& s)
+// {
+//     long long L = std::strtoll(s.c_str(), NULL, 10);
+//     if (L > INT_MAX || L < INT_MIN)
+//     {
+//         std::cout<<"char : impossible\n";
+//         std::cout<<"int : impossible\n";
+//         std::cout<<"float : impossible\n";
+//         std::cout<<"double : impossible\n";
+//         return 1;
+//     }
+//     return 0;
+// }
 
 static void printAll(double v)
 {
@@ -150,15 +159,14 @@ static void printAll(double v)
 void    ScalarConverter::convert(const std::string& literal)
 {
     double v = 0;
-
     if (isPseudo(literal))
         v = std::strtod(literal.c_str(), NULL);
     else if (isChar(literal))
         v = literal[0];
     else if (isInt(literal))
     {
-        if (check(literal))
-            return ;
+        // if (check(literal))
+        //     return ;
         v = std::strtoll(literal.c_str(), NULL, 10);
     }
     else if (isDouble(literal))
