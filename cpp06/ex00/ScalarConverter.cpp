@@ -27,6 +27,9 @@ static int isInt(const std::string& s)
             return 0;
         i++;
     }
+    long long L = std::strtoll(s.c_str(), NULL, 10);
+    if (L > INT_MAX || L < INT_MIN)
+        return 0;
     return 1;
 }
 
@@ -38,7 +41,7 @@ static int isDouble(const std::string& s)
         return 0;
     if (s[i] == '+' || s[i] == '-')
         i++;
-    if (i == s.length())
+    if (i == s.length() || !std::isdigit(s[i]))
         return 0;
     while (i < s.length())
     {
@@ -46,6 +49,8 @@ static int isDouble(const std::string& s)
         {
             p++;
             if (p > 1)
+                return 0;
+            if (i + 1 >= s.length() || !std::isdigit(s[i + 1]))
                 return 0;
         }
         else if (!std::isdigit(s[i]))
@@ -66,15 +71,16 @@ static int isFloat(const std::string &s)
         return 0;
     if (a[i] == '+' || a[i] == '-')
         i++;
-    if (i == a.size())
+    if (i == a.size() || !std::isdigit(s[i]))
         return 0;
-    // check double ff
     while (i < a.size())
     {
-        if (s[i] == '.')
+        if (a[i] == '.')
         {
             p++;
             if (p > 1)
+                return 0;
+            if (i + 1 >= s.length() || !std::isdigit(s[i + 1]))
                 return 0;
         }
         else if (!std::isdigit(a[i]))
@@ -92,19 +98,13 @@ static int isPseudo(const std::string &s)
     return 0;
 }
 
-// static int check(const std::string& s)
-// {
-//     long long L = std::strtoll(s.c_str(), NULL, 10);
-//     if (L > INT_MAX || L < INT_MIN)
-//     {
-//         std::cout<<"char : impossible\n";
-//         std::cout<<"int : impossible\n";
-//         std::cout<<"float : impossible\n";
-//         std::cout<<"double : impossible\n";
-//         return 1;
-//     }
-//     return 0;
-// }
+static void check(void)
+{
+    std::cout<<"char : impossible\n";
+    std::cout<<"int : impossible\n";
+    std::cout<<"float : impossible\n";
+    std::cout<<"double : impossible\n";
+}
 
 static void printAll(double v)
 {
@@ -164,14 +164,12 @@ void    ScalarConverter::convert(const std::string& literal)
     else if (isChar(literal))
         v = literal[0];
     else if (isInt(literal))
-    {
-        // if (check(literal))
-        //     return ;
         v = std::strtoll(literal.c_str(), NULL, 10);
-    }
     else if (isDouble(literal))
         v = std::strtod(literal.c_str(), NULL);
     else if (isFloat(literal))
         v = std::strtod(literal.c_str(), NULL);
+    else
+        return (check());
     printAll(v);
 }
