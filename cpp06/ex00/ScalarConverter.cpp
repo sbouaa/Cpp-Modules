@@ -19,15 +19,13 @@ static int isInt(const std::string& s)
         return 0;
     if (s[i] == '+' || s[i] == '-')
         i++;
-    if (i == s.length())
-        return 0;
     while (i < s.length())
     {
         if (!std::isdigit(s[i]))
             return 0;
         i++;
     }
-    long long L = std::strtoll(s.c_str(), NULL, 10);
+    long L = std::strtol(s.c_str(), NULL, 10);
     if (L > INT_MAX || L < INT_MIN)
         return 0;
     return 1;
@@ -41,8 +39,6 @@ static int isDouble(const std::string& s)
         return 0;
     if (s[i] == '+' || s[i] == '-')
         i++;
-    if (i == s.length() || !std::isdigit(s[i]))
-        return 0;
     while (i < s.length())
     {
         if (s[i] == '.')
@@ -57,6 +53,8 @@ static int isDouble(const std::string& s)
             return 0;
         i++;
     }
+    if (!p)
+        return 0;
     return 1;
 }
 
@@ -71,8 +69,6 @@ static int isFloat(const std::string &s)
         return 0;
     if (a[i] == '+' || a[i] == '-')
         i++;
-    if (i == a.size() || !std::isdigit(s[i]))
-        return 0;
     while (i < a.size())
     {
         if (a[i] == '.')
@@ -80,20 +76,28 @@ static int isFloat(const std::string &s)
             p++;
             if (p > 1)
                 return 0;
-            if (i + 1 >= s.length() || !std::isdigit(s[i + 1]))
+            if (i + 1 >= a.length() || !std::isdigit(a[i + 1]))
                 return 0;
         }
         else if (!std::isdigit(a[i]))
             return 0;
         i++;
     }
+    if (!p)
+        return 0;
     return 1;
 }
 
-static int isPseudo(const std::string &s)
+static int isNan(const std::string &s)
 {
-    if (s == "-inff" || s == "+inff" || s == "nanf" ||
-        s == "-inf"  || s == "+inf"  || s == "nan")
+    if (s == "nan" || s == "nanf")
+        return 1;
+    return 0;
+}
+
+static int isInf(const std::string &s)
+{
+    if (s == "+inf" || s == "-inf" || s == "+inff" || s == "-inff")
         return 1;
     return 0;
 }
@@ -106,23 +110,23 @@ static void check(void)
     std::cout<<"double : impossible\n";
 }
 
-static void printAll(double v)
+static void printAll(double v, const std::string &s)
 {
-    if (std::isnan(v) || std::isinf(v) || v < 0 || v > 127)
+    if (isNan(s) || isInf(s) || v < 0 || v > 127)
         std::cout<<"char : impossible\n";
     else if (v < 32 || v == 127)
         std::cout<<"char : Non displayable\n";
     else
         std::cout<<"char : '"<<static_cast<char>(v)<<"'\n";
 
-    if (std::isnan(v) || std::isinf(v) || v > INT_MAX || v < INT_MIN)
+    if (isNan(s) || isInf(s) || v > INT_MAX || v < INT_MIN)
         std::cout<<"int : impossible\n";
     else
         std::cout<<"int : "<<static_cast<int>(v)<<std::endl;
 
-    if (std::isnan(v))
+    if (isNan(s))
         std::cout<<"float : nanf\n";
-    else if (std::isinf(v))
+    else if (isInf(s))
     {
         if (v > 0)
             std::cout<<"float : +inff\n";
@@ -133,14 +137,14 @@ static void printAll(double v)
     {
         float f = static_cast<float>(v);
         std::cout<<"float : "<<f;
-        if (f == static_cast<long long>(f))
+        if (f == static_cast<long>(f))
             std::cout<<".0";
         std::cout<<"f\n";
     }
 
-    if (std::isnan(v))
+    if (isNan(s))
         std::cout<<"double : nan\n";
-    else if (std::isinf(v))
+    else if (isInf(s))
     {
         if (v > 0)
             std::cout<<"double : +inf\n";
@@ -150,26 +154,26 @@ static void printAll(double v)
     else
     {
         std::cout<<"double : "<<v;
-        if (v == static_cast<long long>(v))
+        if (v == static_cast<long>(v))
             std::cout<<".0";
         std::cout<<std::endl;
     }
 }
 
-void    ScalarConverter::convert(const std::string& literal)
+void    ScalarConverter::convert(const std::string& str)
 {
     double v = 0;
-    if (isPseudo(literal))
-        v = std::strtod(literal.c_str(), NULL);
-    else if (isChar(literal))
-        v = literal[0];
-    else if (isInt(literal))
-        v = std::strtoll(literal.c_str(), NULL, 10);
-    else if (isDouble(literal))
-        v = std::strtod(literal.c_str(), NULL);
-    else if (isFloat(literal))
-        v = std::strtod(literal.c_str(), NULL);
+    if (isNan(str) || isInf(str))
+        v = std::strtod(str.c_str(), NULL);
+    else if (isChar(str))
+        v = str[0];
+    else if (isInt(str))
+        v = std::strtol(str.c_str(), NULL, 10);
+    else if (isDouble(str))
+        v = std::strtod(str.c_str(), NULL);
+    else if (isFloat(str))
+        v = std::strtod(str.c_str(), NULL);
     else
         return (check());
-    printAll(v);
+    printAll(v, str);
 }
