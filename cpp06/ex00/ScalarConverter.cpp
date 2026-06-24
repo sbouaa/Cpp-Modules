@@ -8,7 +8,7 @@ ScalarConverter::~ScalarConverter() {}
 static int isChar(const std::string& s)
 {
     if (s.length() == 1 && !std::isdigit(s[0]))
-        return 1;
+        return (1);
     return 0;
 }
 
@@ -33,7 +33,7 @@ static int isInt(const std::string& s)
 
 static int isDouble(const std::string& s)
 {
-    int p = 0;
+    int p = 0, d = 0;
     size_t i = 0;
     if (s.empty())
         return 0;
@@ -42,25 +42,19 @@ static int isDouble(const std::string& s)
     while (i < s.length())
     {
         if (s[i] == '.')
-        {
             p++;
-            if (p > 1)
-                return 0;
-            if (i + 1 >= s.length() || !std::isdigit(s[i + 1]))
-                return 0;
-        }
-        else if (!std::isdigit(s[i]))
+        else if (std::isdigit(s[i]))
+            d = 1;
+        else
             return 0;
         i++;
     }
-    if (!p)
-        return 0;
-    return 1;
+    return (p <= 1 && d);
 }
 
 static int isFloat(const std::string &s)
 {
-    int p = 0;
+    int p = 0, d = 0;
     size_t i = 0;
     if (s.empty() || s[s.size() - 1] != 'f')
         return 0;
@@ -72,20 +66,14 @@ static int isFloat(const std::string &s)
     while (i < a.size())
     {
         if (a[i] == '.')
-        {
             p++;
-            if (p > 1)
-                return 0;
-            if (i + 1 >= a.length() || !std::isdigit(a[i + 1]))
-                return 0;
-        }
-        else if (!std::isdigit(a[i]))
+        else if (std::isdigit(a[i]))
+            d = 1;
+        else
             return 0;
         i++;
     }
-    if (!p)
-        return 0;
-    return 1;
+    return (p == 1 && d);
 }
 
 static int isNan(const std::string &s)
@@ -136,9 +124,7 @@ static void printAll(double v, const std::string &s)
     else
     {
         float f = static_cast<float>(v);
-        std::cout<<"float : "<<f;
-        if (f == static_cast<long>(f))
-            std::cout<<".0";
+        std::cout<<"float : "<<std::fixed<<std::setprecision(1)<<f;
         std::cout<<"f\n";
     }
 
@@ -153,9 +139,7 @@ static void printAll(double v, const std::string &s)
     }
     else
     {
-        std::cout<<"double : "<<v;
-        if (v == static_cast<long>(v))
-            std::cout<<".0";
+        std::cout<<"double : "<<std::fixed<<std::setprecision(1)<<v;
         std::cout<<std::endl;
     }
 }

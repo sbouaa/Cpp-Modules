@@ -13,7 +13,7 @@ int main(void)
     std::cout<<p->s<<" | "<<data.s<<std::endl;
     int w = 1337;
     float *f = reinterpret_cast<float *>(&w);
-    *f = 14.78f;
+    *f = 14;
     std::cout<<w<<std::endl;
     return 0;
 }

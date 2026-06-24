@@ -4,6 +4,7 @@
 #include <iostream>
 #include <climits>
 #include <cstdlib>
+#include <iomanip>
 
 class ScalarConverter
 {
@@ -15,5 +16,5 @@ class ScalarConverter
     public :
         static void convert(const std::string& str);
 };
-
+ 
 #endif
