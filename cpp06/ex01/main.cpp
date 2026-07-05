@@ -11,9 +11,5 @@ int main(void)
         std::cout<<"Nice\n";
     std::cout<<p->a<<" | "<<data.a<<std::endl;
     std::cout<<p->s<<" | "<<data.s<<std::endl;
-    int w = 1337;
-    float *f = reinterpret_cast<float *>(&w);
-    *f = 14;
-    std::cout<<w<<std::endl;
     return 0;
 }

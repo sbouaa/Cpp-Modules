@@ -2,8 +2,9 @@
 
 int main()
 {
+    Base a;
     std::srand(std::time(0));
     Base *p = generate();
     identify(*p);
-    identify(p);
+    identify(a);
 }

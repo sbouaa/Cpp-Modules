@@ -24,6 +24,8 @@ void    identify(Base *p)
         std::cout<<"is B\n";
     if (dynamic_cast<C*>(p))
         std::cout<<"is C\n";
+    else
+        std::cout<<"unknown type\n";
 }
 
 void    identify(Base &p)
@@ -48,5 +50,7 @@ void    identify(Base &p)
         std::cout<<"is C\n";
         return ;
     }
-    catch (...){}
+    catch (...){
+        std::cout<<"unknown type\n";
+    }
 }

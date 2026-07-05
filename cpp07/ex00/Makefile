@@ -1,12 +1,12 @@
 CPP = c++
 
-NAME = whatever
+NAME = Whatever
 
 FLAGS = -Wall -Wextra -Werror -std=c++98 
 
 RM = rm -rf
 
-SRC = main.cpp 
+SRC = main.cpp
 
 HEADER = whatever.hpp
 

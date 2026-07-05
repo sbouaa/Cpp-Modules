@@ -3,19 +3,23 @@
 
 #include <iostream>
 
-template <typename X>
-void    iter(X *arr, int len, void(*f)(const X &x))
+template <typename T>
+
+void    iter(T *arr, const int len, void (*f)(T &))
 {
+    if (!arr || !f)
+        return ;
     for (int i = 0; i < len; i++)
         f(arr[i]);
 }
 
 template <typename X>
-void    iter(X *ar, int le, void(*fe)(X x))
+void    iter(const X *arr, const int len, void (*f)(const X &))
 {
-    for (int i = 0; i < le; i++)
-        fe(ar[i]);
+    if (!arr || !f)
+        return ;
+    for (int i = 0; i < len; i++)
+        f(arr[i]);
 }
-
 
 #endif
