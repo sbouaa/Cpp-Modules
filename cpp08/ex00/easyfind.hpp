@@ -17,10 +17,10 @@ class NoOccurrence : public std::exception
 template <typename T>
 void    easyfind(T &x, int n)
 {
-    typename T::iterator i =  std::find(x.begin(), x.end(), n);
+    typename T::iterator i = std::find(x.begin(), x.end(), n);
     if (i == x.end())
         throw NoOccurrence();
-    std::cout<<"Founded !!!!!!!  "<<"["<<*i<<"]";
+    std::cout<<"Founded !!!!!!!  "<<"["<< *i <<"]";
 }
 
 #endif

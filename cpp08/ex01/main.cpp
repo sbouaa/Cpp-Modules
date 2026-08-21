@@ -10,7 +10,7 @@ int main()
     sp.addNumber(11);
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
-
+    std::cout<<"--------\n";
     try {
         sp.addNumber(42);
     }
@@ -18,7 +18,7 @@ int main()
     {
         std::cout<<x.what();
     }
-
+    std::cout<<"--------\n";
     Span a(5);
     try{
         a.shortestSpan();
@@ -30,8 +30,8 @@ int main()
     a.addNumber(133);
     a.addNumber(144);
     std::cout<<a.shortestSpan()<<std::endl;
-    std::cout<<a.longestSpan();
-
+    std::cout<<a.longestSpan()<<std::endl;
+    std::cout<<"--------\n";
     std::vector<int> b;
     for (int i = 0; i < 26; i++)
         b.push_back(i*7);
